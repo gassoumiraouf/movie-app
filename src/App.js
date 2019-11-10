@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './header';
+
+import MovieList from './movielist';
+import {connect} from 'react-redux'
+
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     
+      minRating: 1,
+      keyword: '',
+      loading: true
+    }
+  
+  componentDidMount=()=> {
+    setTimeout(()=>
+    {this.setState({ loading:false})
+  },1
+    )
+      
+  }
+
+
+render() {
+    return (<div className='all'>
+      <div className='container movie-container'>
+        <section className='header'>
+          <h1>movie app</h1>
+          <Header name={(x) => this.filtername(x)} rating={(x)=>this.filterrating(x)} />
+        </section>
+        <section>
+
+          <MovieList/>
+            add={(newMovie) => this.add(newMovie)} loading={this.state.loading}
+          />
+        </section>
+      </div>
+    </div>);
+  }
 }
 
-export default App;
+
+}
+
+export default connect (null, null) (App);
